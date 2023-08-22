@@ -4,6 +4,7 @@ import create from '../controllers/cities/create.js'
 import destroy from '../controllers/cities/destroy.js'
 import readOne from '../controllers/cities/readOne.js'
 import update from '../controllers/cities/update.js'
+import carousel from '../controllers/cities/carousel.js';
 
 let router = express.Router();
 
@@ -28,8 +29,9 @@ router.post('/', create )
 
 //GET
 router.get('/', read)
+router.get('/carousel', carousel)
 router.get('/:id', readOne)       //el nombre del parametro puede ser cualquiera. Pero, tanto en el enrutador como en el controlador debe tener el mismo nombre (ejemplo: acá y en el controlador se llaman: id)
-
+//Los endpoints que lleven params van siempre al final, para que no me detecte las palabritas como el parametro configurado
 //UPDATE
 router.put('/:u_id',update)
 
