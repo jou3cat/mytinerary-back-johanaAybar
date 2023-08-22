@@ -6,8 +6,9 @@ import app from '../app.js';             //configuracion del servidor
 //var app = require('../app');        
 import debug from 'debug';            //modulo de debugeo
 //var debug = require('debug')('mytinerary-node:server');
-import http from 'http'               //modulo para crear servidores http
+import http from 'http' ;              //modulo para crear servidores http
 //var http = require('http');
+import {connect} from 'mongoose';      //metodo para conectarse a la base de datos
 
 //PORT
 //process.env guarda las configuraciones de las variables de entorno 
@@ -21,7 +22,13 @@ app.set('port', port);
 //START SERVING
 
 let server = http.createServer(app);  //creo un servidor normalizado con http
-let ready=()=> console.log('server ready on port '+ port);
+let ready=()=> {  console.log('server ready on port '+ port);
+//connect ('mongodb+srv://johaaybar:<password>@cluster0.mzdaet7.mongodb.net/')  //acá pongo el link de mongo
+connect(process.env.LINK_DB)                  //el método connect devuelve una promesa: trabajar con then-catch o async-await
+.then(()=>console.log('database connected'))
+.catch(err=>console.log(err))
+  }
+
 server.listen(port, ready);                  //con el metodo listen ESCUCHO el puerto para que empiece a funcionar (a levantarse)
 
 server.on('error', onError);
