@@ -20,6 +20,7 @@ import indexRouter from'./routes/index.js'        //este enrutador va a llamar a
 
 import errorHandler from './middlewares/errorHandler.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
+import cors from 'cors';   //modulo para desbloquear las politicas de CORS (origenes cruzados/server del front 5173 y del back 8080 )   
 
 let app = express();           //ejecutando el modulo de express: Creo una app de backend (servidor)     
 
@@ -33,7 +34,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));     //obligo al servidor a registrar una peticion con el modulo de logger/ morgan
 app.use(express.json());    //Obligo al servidor a manipular/leer json
 app.use(express.urlencoded({ extended: false }));     //obliga al servidor a leer params/queries
-//app.use(cookieParser());      
+app.use(cors());            //obligo al servidor a desbloquear la politica de origenes cruzados      
 app.use(express.static(path.join(__dirname, 'public')));    //obligo al servidor a acceder a los archivos estaticos de la carpeta public
 
 //ROUTER
