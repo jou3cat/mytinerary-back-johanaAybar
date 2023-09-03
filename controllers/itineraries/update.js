@@ -1,15 +1,20 @@
-import City from "../../models/City.js";
+import Itineraries from '../../models/Itineraries.js';
 
 export default async (req, res, next)=> {   
     //req:objeto con todos los requerimientos que envia el cliente 
     //res: objeto de respuesta a devolver al cliente 
    try{
-       let readOne=await City.findById(req.params._id)
-        if (readOne){
+       let updatedItineraries=await Itineraries.findByIdAndUpdate(
+        req.params.id, 
+        req.body,
+        {new:true}
+        ).select('name city_id price duration tags photo')
+
+        if (updatedItineraries){
             return res.status(200).json({
                 success:true,
-                message:'city found',
-                response: readOne
+                message:'city updated',
+                response:updatedItineraries
             })
         }else{
             return res.status(404).json({

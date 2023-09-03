@@ -1,14 +1,14 @@
-import City from "../../models/City.js";
+import Itineraries from '../../models/Itineraries.js';
 
 export default async (req, res, next)=> {   
     //req:objeto con todos los requerimientos que envia el cliente 
     //res: objeto de respuesta a devolver al cliente 
    try{
-       let readOne=await City.findById(req.params._id)
+       let readOne=await Itineraries.findById(req.params._id)
         if (readOne){
             return res.status(200).json({
                 success:true,
-                message:'city found',
+                message:'Itinerarie found',
                 response: readOne
             })
         }else{
